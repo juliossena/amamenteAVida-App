@@ -22,22 +22,13 @@ export const Input = styled.TextInput`
     color: white;
     padding-left: 5px;
     border: 1px solid ${colors.pinkLight};
-    width: 80%;
-    margin: 8px auto;
+    margin-bottom: 8px;
     text-align: center;
 `;
 
-export const Button = styled.Button`
-    border: 1px solid ${colors.grey300};
-    border-radius: 3px;
-    height: 48px;
-    padding: 0px 16px;
-    color: white;
-    padding-left: 5px;
-    border: 1px solid ${colors.pinkLight};
-    width: 100px;
+export const ContainerLogin = styled.View`
+    width: 80%;
     margin: 8px auto;
-    text-align: center;
 `;
 
 export default Logo;

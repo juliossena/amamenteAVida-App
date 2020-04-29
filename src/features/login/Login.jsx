@@ -1,22 +1,54 @@
-import React from 'react';
-import { Image } from 'react-native';
+import React, { useState } from 'react';
 import {
-  Logo, Background, Input, Button,
+  Logo, Background, ContainerLogin,
 } from './styles';
+import Input from '../../shared/input/Input';
+import Button from '../../shared/button/Button';
 import { colors } from '../../utils/colors';
-
+import {
+  EMAIL_TYPE, PASSWORD_TYPE,
+} from '../../shared/input/constants';
 
 const image = require('../../assets/img/logo.png');
+const iconEmail = require('../../assets/icons/email.png');
+const iconPassword = require('../../assets/icons/password.png');
 
-const Login = () => (
-  <Background>
-    <Logo source={image} />
-    <Input placeholder="Email" placeholderTextColor={colors.pinkLight} />
-    <Input placeholder="Senha" placeholderTextColor={colors.pinkLight} />
-    <Button
-      title="Entrar"
-    />
-  </Background>
-);
+const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChangeEmail = (value) => {
+    setEmail(value);
+  };
+
+  const handleChangePassword = (value) => {
+    setPassword(value);
+  };
+
+  return (
+    <Background>
+      <Logo source={image} />
+      <ContainerLogin>
+        <Input
+          placeholder="Email"
+          type={EMAIL_TYPE}
+          color={colors.pinkLight}
+          icon={iconEmail}
+          value={email}
+          onChangeText={handleChangeEmail}
+        />
+        <Input
+          placeholder="Senha"
+          type={PASSWORD_TYPE}
+          color={colors.pinkLight}
+          icon={iconPassword}
+          value={password}
+          onChangeText={handleChangePassword}
+        />
+        <Button onPress={() => ''} label="ENTRAR" />
+      </ContainerLogin>
+    </Background>
+  );
+};
 
 export default Login;
