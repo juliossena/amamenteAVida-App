@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { colors } from '../../utils/colors';
+import { colors } from '../../../utils/colors';
 
 export const Logo = styled.Image`
   width: 127px;
@@ -12,6 +12,7 @@ export const Background = styled.View`
     width: 100%;
     height: 100%;
     background-color: ${colors.pinkDark};
+    position: relative;
 `;
 
 export const Input = styled.TextInput`
@@ -29,6 +30,27 @@ export const Input = styled.TextInput`
 export const ContainerLogin = styled.View`
     width: 80%;
     margin: 8px auto;
+`;
+
+export const ErrorMessage = styled.Text`
+    color: white;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+`;
+
+export const ButtonBottom = styled.Text`
+    text-decoration: underline;
+    color: ${colors.white};
+    margin: 8px auto;
+    font-size: 16px;
+`;
+
+export const BoxBottom = styled.View`
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    margin: auto;
 `;
 
 export default Logo;

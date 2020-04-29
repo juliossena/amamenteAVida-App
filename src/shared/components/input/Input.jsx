@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { colors } from '../../utils/colors';
+import { colors } from '../../../utils/colors';
 
 import { InputStyled, Container, Icon } from './styles';
 import {
@@ -69,7 +69,7 @@ Input.propTypes = {
   type: PropTypes.string,
   inputProps: PropTypes.instanceOf(Object),
   icon: PropTypes.number,
-  innerRef: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+  innerRef: PropTypes.instanceOf(Object),
   editable: PropTypes.bool,
   value: PropTypes.string.isRequired,
   disabled: PropTypes.bool,

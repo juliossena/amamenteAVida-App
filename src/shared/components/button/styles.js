@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Platform } from 'react-native';
 
-import { colors } from '../../utils/colors';
+import { colors } from '../../../utils/colors';
 
 export const ButtonStyle = styled.Button`
     border-radius: 3px;
@@ -14,7 +14,7 @@ export const ButtonStyle = styled.Button`
 export const ActivityContainer = styled.View`
   position: absolute;
   top: 0;
-  left: 15;
+  left: 8px;
   bottom: 0;
   justify-content: center;
 `;

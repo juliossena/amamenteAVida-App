@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Text, ActivityContainer, Container } from './styles';
 
-import { colors } from '../../utils/colors';
+import { colors } from '../../../utils/colors';
 
 const Button = ({
   onPress,
@@ -34,7 +34,7 @@ const Button = ({
           <ActivityIndicator size="small" color={colors.white} />
         </ActivityContainer>
       ) : null}
-      <Text semiBold color="white">
+      <Text semiBold color={color}>
         {label}
       </Text>
     </Container>
