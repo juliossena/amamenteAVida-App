@@ -1,6 +1,6 @@
 import React from 'react';
-import Navegator from './navigator';
+import Navigator from './Navigator';
 
-const App = () => <Navegator />;
+const App = () => <Navigator />;
 
 export default App;
