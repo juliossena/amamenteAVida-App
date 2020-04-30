@@ -12,7 +12,6 @@ export const Background = styled.View`
     width: 100%;
     height: 100%;
     background-color: ${colors.pinkDark};
-    position: relative;
 `;
 
 export const Input = styled.TextInput`
@@ -47,10 +46,8 @@ export const ButtonBottom = styled.Text`
 `;
 
 export const BoxBottom = styled.View`
-    position: absolute;
-    bottom: 30px;
     width: 100%;
-    margin: auto;
+    margin: 20px auto;
 `;
 
 export default Logo;

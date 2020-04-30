@@ -1,4 +1,6 @@
 import React, { useState, createRef } from 'react';
+import { withNavigation } from 'react-navigation';
+import PropTypes from 'prop-types';
 import {
   Logo, Background, ContainerLogin, ErrorMessage, BoxBottom, ButtonBottom,
 } from './styles';
@@ -9,6 +11,8 @@ import {
   EMAIL_TYPE, PASSWORD_TYPE,
 } from '../../../shared/components/input/constants';
 import { ConectarApiPost } from '../../../shared/functions/conectionAPI';
+import { onSignIn } from '../../../shared/functions/auth';
+
 
 const image = require('../../../assets/img/logo.png');
 const iconEmail = require('../../../assets/icons/email.png');
@@ -17,7 +21,7 @@ const iconPassword = require('../../../assets/icons/password.png');
 const URL_BASE = 'https://amamenteavida.herokuapp.com/';
 const URL_LOGIN = `${URL_BASE}login`;
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -40,7 +44,8 @@ const Login = () => {
     const bodyLogin = { email, password };
     try {
       const result = await ConectarApiPost(URL_LOGIN, bodyLogin);
-      console.log(result.headers.authorization);
+      onSignIn(result.headers.authorization);
+      navigation.navigate('Home');
     } catch (e) {
       setErrorMessage('Email ou senha inválidos');
     }
@@ -91,4 +96,10 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withNavigation(Login);

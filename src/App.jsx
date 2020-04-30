@@ -1,11 +1,6 @@
 import React from 'react';
-import Login from './features/login';
+import Navegator from './navigator';
 
-
-const App = () => (
-  <>
-    <Login />
-  </>
-);
+const App = () => <Navegator />;
 
 export default App;
