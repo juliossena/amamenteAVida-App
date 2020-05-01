@@ -43,9 +43,10 @@ export default class Conecta {
         switch (error.response.status) {
           case 403:
             throw new Error(Constants.EXCEPTION_ERROR_FORBIDDEN);
+          case 400:
           case 422:
-            if (error.response.data && error.response.data.mensagem) {
-              throw new Error(error.response.data.mensagem);
+            if (error.response.data && error.response.data.message) {
+              throw new Error(error.response.data.message);
             }
             break;
           case 500:

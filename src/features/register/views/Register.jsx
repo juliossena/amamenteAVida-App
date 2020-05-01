@@ -1,7 +1,8 @@
 import React, { useState, createRef } from 'react';
-import { View, TouchableOpacity } from 'react-native';
 import { RadioButton } from 'react-native-paper';
+import { View, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+
 
 import {
   EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF,
@@ -16,6 +17,7 @@ import {
   BoxCheckbox,
   TextCheckbox,
 } from './styles';
+import ModalFeedback from '../../../shared/components/modal/feedback/ModalFeedback';
 import TitleScreen from '../../../shared/components/titleScreen/TitleScreen';
 import Input, { SelectMask } from '../../../shared/components/input/Input';
 import Button from '../../../shared/components/button/Button';
@@ -30,6 +32,9 @@ const URL_CREATE_USER = `${URL_BASE}client`;
 
 const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [modalSuccessful, setModalSuccessful] = useState(false);
+  const [sendSuccessful, setSendSuccessful] = useState(false);
+  const [messageError, setMessageError] = useState('');
   const [page, setPage] = useState(1);
   const [checkDonor, setCheckDonor] = useState('false');
   const [name, setName] = useState('');
@@ -122,12 +127,22 @@ const Register = ({ navigation }) => {
     };
     try {
       await ConectarApiPost(URL_CREATE_USER, bodyCreate);
-      navigation.navigate('Login');
+      setModalSuccessful(true);
+      setSendSuccessful(true);
     } catch (e) {
-      console.log(e);
+      setModalSuccessful(true);
+      setMessageError(e.message);
     }
     setLoading(false);
     return true;
+  };
+
+  const handleButtonModal = () => {
+    if (sendSuccessful) {
+      navigation.navigate('Login');
+    } else {
+      setModalSuccessful(false);
+    }
   };
 
 
@@ -230,8 +245,10 @@ const Register = ({ navigation }) => {
   );
 
   return (
-    <View style={{ backgroundColor: colors.primaryLight, height: '100%' }}>
-
+    <View style={{ backgroundColor: colors.primaryLight, height: '100%', position: 'relative' }}>
+      <ModalFeedback open={modalSuccessful} isSuccess={sendSuccessful} onClose={handleButtonModal}>
+        {sendSuccessful ? 'Cadastro efetuado. Efetue o login com o e-mail e a senha cadastradas.' : messageError}
+      </ModalFeedback>
       <View style={{ backgroundColor: colors.white }}>
         <TitleScreen
           title="Criar novo cadastro"
