@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { colors } from '../../../utils/colors';
 
 export const Logo = styled.Image`
-  width: 127px;
-  height: 180px;
-  margin: 50px auto;
+  width: 112px;
+  height: 160px;
+  margin: 30px auto;
 `;
 
 export const Background = styled.View`
@@ -47,7 +47,7 @@ export const ButtonBottom = styled.Text`
 
 export const BoxBottom = styled.View`
     width: 100%;
-    margin: 20px auto;
+    margin: auto;
 `;
 
 export default Logo;

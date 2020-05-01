@@ -2,14 +2,15 @@ import styled from 'styled-components';
 
 import { colors } from '../../../utils/colors';
 
+
 export const Container = styled.View`
-    border-radius: 3px;
     height: 48px;
     padding: 0px 16px;
     color: white;
     padding-left: 5px;
-    border: 1px solid ${(props) => props.color || colors.pinkLight};
-    margin-bottom: 8px;
+    border-bottom-color: ${(props) => props.color || colors.primary};
+    border-bottom-width: 1px;
+    margin-bottom: 16px;
     text-align: center;
     font-size: 18px;
     width: 100%;
@@ -18,12 +19,16 @@ export const Container = styled.View`
     align-items: center;
 `;
 
+export const ContainerTitle = styled.View`
+    display: flex;
+`;
+
 export const InputStyled = styled.TextInput`
-    height: 48px;
-    color: white;
-    text-align: center;
-    font-size: 18px;
-    width: 100%
+    color: ${(props) => props.color || colors.primary};
+    text-align: left;
+    font-size: 14px;
+    width: 100%;
+    margin-bottom: -16px;
 `;
 
 export const Icon = styled.Image`
@@ -32,4 +37,7 @@ export const Icon = styled.Image`
     height: 16px;
 `;
 
-export default InputStyled;
+export const Title = styled.Text`
+    color: ${(props) => props.color || colors.grey900};
+    margin-bottom: -8px;
+`;

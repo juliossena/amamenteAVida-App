@@ -6,6 +6,7 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import Login from './features/login';
 import Home from './features/home';
 import ForgotPassword from './features/forgotPassword';
+import Register from './features/register';
 import Locations from './features/locations';
 import Information from './features/information';
 import HomeCollection from './features/homeCollection';
@@ -49,10 +50,12 @@ const mainRoutes = {
     name: 'ForgotPassword',
     screen: ForgotPassword,
   },
+  Register: {
+    name: 'Register',
+    screen: Register,
+  },
 };
 
-const mainNavigator = createSwitchNavigator(mainRoutes, {
-  initialRouteName: 'Login',
-});
+const mainNavigator = createSwitchNavigator(mainRoutes);
 
 export default createAppContainer(mainNavigator);

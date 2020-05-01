@@ -1,5 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { withNavigation } from 'react-navigation';
+import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Logo, Background, ContainerLogin, ErrorMessage, BoxBottom, ButtonBottom,
@@ -65,16 +66,22 @@ const Login = ({ navigation }) => {
       <Logo source={image} />
       <ContainerLogin>
         <Input
+          title="E-mail:"
+          colorBorder={colors.pinkLight}
+          colorTitle={colors.pinkLight}
+          color={colors.white}
           innerRef={emailRef}
           placeholder="Email"
           type={EMAIL_TYPE}
-          color={colors.pinkLight}
           icon={iconEmail}
           value={email}
           onChangeText={handleChangeEmail}
           onSubmitEditing={() => passwordRef.current.focus()}
         />
         <Input
+          title="Senha:"
+          colorBorder={colors.pinkLight}
+          colorTitle={colors.pinkLight}
           innerRef={passwordRef}
           placeholder="Senha"
           type={PASSWORD_TYPE}
@@ -90,7 +97,10 @@ const Login = ({ navigation }) => {
       </ContainerLogin>
       <BoxBottom>
         <ButtonBottom>Esqueci a senha</ButtonBottom>
-        <ButtonBottom>Criar novo cadastro</ButtonBottom>
+        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+          <ButtonBottom>Criar novo cadastro</ButtonBottom>
+
+        </TouchableOpacity>
       </BoxBottom>
     </Background>
   );
