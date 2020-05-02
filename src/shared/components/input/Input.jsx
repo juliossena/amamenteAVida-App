@@ -1,14 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { colors } from '../../../utils/colors';
 
-import {
-  InputStyled, Container, Icon, Title, ContainerTitle,
-} from './styles';
+import { colors } from '../../../utils/colors';
 import {
   EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF,
 } from './constants';
+import {
+  InputStyled, Container, Icon, Title, ContainerTitle, MessageError,
+} from './styles';
 
 export const Mask = {
   date: (_value) => {
@@ -94,7 +94,7 @@ const getPropsByType = (type) => {
 const Input = ({
   placeholder, color, type, icon, innerRef, editable, colorPlacehoder,
   disabled, value, onChangeText, onFocus, maxLength, title, colorTitle,
-  colorBorder, ...inputProps
+  colorBorder, messageErro, ...inputProps
 }) => (
   <ContainerTitle>
     <Title color={colorTitle}>
@@ -117,6 +117,9 @@ const Input = ({
       />
       {icon ? (<Icon source={icon} />) : null}
     </Container>
+    <MessageError>
+      {messageErro}
+    </MessageError>
   </ContainerTitle>
 );
 
@@ -137,6 +140,7 @@ Input.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   onFocus: PropTypes.func,
   maxLength: PropTypes.number,
+  messageErro: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -153,6 +157,7 @@ Input.defaultProps = {
   disabled: false,
   onFocus: () => {},
   maxLength: 9999,
+  messageErro: '',
 };
 
 export default Input;

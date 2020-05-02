@@ -11,16 +11,13 @@ import { colors } from '../../../utils/colors';
 import {
   EMAIL_TYPE, PASSWORD_TYPE,
 } from '../../../shared/components/input/constants';
-import { ConectarApiPost } from '../../../shared/functions/conectionAPI';
+import { ConectarApiPost, URL_LOGIN } from '../../../shared/functions/conection';
 import { onSignIn } from '../../../shared/functions/auth';
 
 
 const image = require('../../../assets/img/logo.png');
 const iconEmail = require('../../../assets/icons/email.png');
 const iconPassword = require('../../../assets/icons/password.png');
-
-const URL_BASE = 'https://amamenteavida.herokuapp.com/';
-const URL_LOGIN = `${URL_BASE}login`;
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -96,10 +93,11 @@ const Login = ({ navigation }) => {
 
       </ContainerLogin>
       <BoxBottom>
-        <ButtonBottom>Esqueci a senha</ButtonBottom>
+        <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
+          <ButtonBottom>Esqueci a senha</ButtonBottom>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Register')}>
           <ButtonBottom>Criar novo cadastro</ButtonBottom>
-
         </TouchableOpacity>
       </BoxBottom>
     </Background>

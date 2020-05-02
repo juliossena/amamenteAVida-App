@@ -8,6 +8,12 @@ import {
   EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF,
 } from '../../../shared/components/input/constants';
 import { colors } from '../../../utils/colors';
+import ModalFeedback from '../../../shared/components/modal/feedback/ModalFeedback';
+import TitleScreen from '../../../shared/components/titleScreen/TitleScreen';
+import Input, { SelectMask } from '../../../shared/components/input/Input';
+import Button from '../../../shared/components/button/Button';
+import { validateCpf, validateEmail, validateDate } from '../../../shared/functions/validate';
+import { ConectarApiPost, URL_CREATE_USER } from '../../../shared/functions/conection';
 import {
   Container,
   ImgBottom,
@@ -16,19 +22,11 @@ import {
   BtnPrevious,
   BoxCheckbox,
   TextCheckbox,
+  ContainerInfo,
 } from './styles';
-import ModalFeedback from '../../../shared/components/modal/feedback/ModalFeedback';
-import TitleScreen from '../../../shared/components/titleScreen/TitleScreen';
-import Input, { SelectMask } from '../../../shared/components/input/Input';
-import Button from '../../../shared/components/button/Button';
-import { validateCpf, validateEmail, validateDate } from '../../../shared/functions/validate';
-import { ConectarApiPost } from '../../../shared/functions/conectionAPI';
 
 const imageBg = require('../../../assets/img/bg_light.png');
 const iconNext = require('../../../assets/icons/next.png');
-
-const URL_BASE = 'https://amamenteavida.herokuapp.com/';
-const URL_CREATE_USER = `${URL_BASE}client`;
 
 const Register = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
@@ -243,7 +241,7 @@ const Register = ({ navigation }) => {
   );
 
   return (
-    <View style={{ backgroundColor: colors.primaryLight, height: '100%', position: 'relative' }}>
+    <Container>
       <ModalFeedback open={modalSuccessful} isSuccess={sendSuccessful} onClose={handleButtonModal}>
         {sendSuccessful ? 'Cadastro efetuado. Efetue o login com o e-mail e a senha cadastradas.' : messageError}
       </ModalFeedback>
@@ -252,7 +250,7 @@ const Register = ({ navigation }) => {
           title="Criar novo cadastro"
           goBack={() => navigation.navigate('Login')}
         />
-        <Container>
+        <ContainerInfo>
           {renderQuestion1()}
           {renderQuestion2()}
           <BoxPreviousNext>
@@ -270,10 +268,10 @@ const Register = ({ navigation }) => {
             backgroundColor={isFilled() ? colors.primary : colors.grey200}
             onPress={sendRegister}
           />
-        </Container>
+        </ContainerInfo>
         <ImgBottom source={imageBg} />
       </View>
-    </View>
+    </Container>
   );
 };
 

@@ -2,6 +2,13 @@ import styled from 'styled-components';
 import { colors } from '../../../utils/colors';
 
 export const Container = styled.View`
+    background-color: ${colors.primaryLight};
+    height: 100%;
+    width: 100%;
+    position: relative;
+`;
+
+export const ContainerInfo = styled.View`
     width: 80%;
     margin: 0px auto 40px auto;
 `;

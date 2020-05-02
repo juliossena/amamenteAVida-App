@@ -10,13 +10,18 @@ export const Container = styled.View`
     padding-left: 5px;
     border-bottom-color: ${(props) => props.color || colors.primary};
     border-bottom-width: 1px;
-    margin-bottom: 16px;
     text-align: center;
     font-size: 18px;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+`;
+
+export const MessageError = styled.Text`
+    font-size: 12px;
+    color: ${colors.pink};
+    margin: 2px 8px;
 `;
 
 export const ContainerTitle = styled.View`
