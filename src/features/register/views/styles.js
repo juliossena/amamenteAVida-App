@@ -35,7 +35,8 @@ export const BoxPreviousNext = styled.View`
 export const BoxCheckbox = styled.View`
     flex-direction: row;
     align-items: center;
-    margin-bottom: 12px;
+    margin-top: 8px;
+    margin-bottom: 20px;
 `;
 
 export const TextCheckbox = styled.Text`

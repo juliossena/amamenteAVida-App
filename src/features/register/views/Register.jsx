@@ -1,9 +1,9 @@
 import React, { useState, createRef } from 'react';
-import { RadioButton } from 'react-native-paper';
 import { View, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import RadioButton from '../../../shared/components/input/radioButton/RadioButton';
 
-
+import { brToIso } from '../../../shared/functions/date';
 import {
   EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF,
 } from '../../../shared/components/input/constants';
@@ -36,7 +36,7 @@ const Register = ({ navigation }) => {
   const [sendSuccessful, setSendSuccessful] = useState(false);
   const [messageError, setMessageError] = useState('');
   const [page, setPage] = useState(1);
-  const [checkDonor, setCheckDonor] = useState('false');
+  const [checkDonor, setCheckDonor] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [birthDate, setBirthDate] = useState('');
@@ -123,7 +123,7 @@ const Register = ({ navigation }) => {
     }
     setLoading(true);
     const bodyCreate = {
-      name, email, password, profission: profession,
+      name, email, password, profession, birthDate: brToIso(birthDate), cpf, isDonor: checkDonor,
     };
     try {
       await ConectarApiPost(URL_CREATE_USER, bodyCreate);
@@ -224,20 +224,18 @@ const Register = ({ navigation }) => {
       <BoxCheckbox>
         <RadioButton
           color={colors.primary}
-          value="true"
-          status={checkDonor === 'true' ? 'checked' : 'unchecked'}
-          onPress={() => { setCheckDonor('true'); }}
+          status={checkDonor === true}
+          onPress={() => { setCheckDonor(true); }}
         />
-        <TouchableOpacity onPress={() => setCheckDonor('true')}>
+        <TouchableOpacity onPress={() => setCheckDonor(true)}>
           <TextCheckbox>Sim</TextCheckbox>
         </TouchableOpacity>
         <RadioButton
           color={colors.primary}
-          value="false"
-          status={checkDonor === 'false' ? 'checked' : 'unchecked'}
-          onPress={() => { setCheckDonor('false'); }}
+          status={checkDonor === false}
+          onPress={() => { setCheckDonor(false); }}
         />
-        <TouchableOpacity onPress={() => setCheckDonor('false')}>
+        <TouchableOpacity onPress={() => setCheckDonor(false)}>
           <TextCheckbox>Não</TextCheckbox>
         </TouchableOpacity>
       </BoxCheckbox>
