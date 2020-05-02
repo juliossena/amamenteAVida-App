@@ -1,8 +1,9 @@
 import React, { useState, createRef } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import RadioButton from '../../../shared/components/input/radioButton/RadioButton';
 
+import useHorizontalSteps from '../../../utils/useHorizontalSteps';
 import { brToIso } from '../../../shared/functions/date';
 import {
   EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF,
@@ -23,17 +24,23 @@ import {
   BoxCheckbox,
   TextCheckbox,
   ContainerInfo,
+  ScrollView,
+  BoxStep,
+  BoxButton,
 } from './styles';
 
 const imageBg = require('../../../assets/img/bg_light.png');
 const iconNext = require('../../../assets/icons/next.png');
 
 const Register = ({ navigation }) => {
+  const {
+    ref, nextStep, previousStep, currentStep,
+  } = useHorizontalSteps(Dimensions.get('window').width);
+
   const [loading, setLoading] = useState(false);
   const [modalSuccessful, setModalSuccessful] = useState(false);
   const [sendSuccessful, setSendSuccessful] = useState(false);
   const [messageError, setMessageError] = useState('');
-  const [page, setPage] = useState(1);
   const [checkDonor, setCheckDonor] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -42,6 +49,15 @@ const Register = ({ navigation }) => {
   const [profession, setProfession] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [errorInput, setErrorInput] = useState({
+    name: '',
+    email: '',
+    birthDate: '',
+    cpf: '',
+    profession: '',
+    password: '',
+    confirmPassword: '',
+  });
 
   const nameRef = createRef(null);
   const emailRef = createRef(null);
@@ -87,38 +103,65 @@ const Register = ({ navigation }) => {
   };
 
   const sendRegister = async () => {
+    let notError = true;
     if (name === '') {
-      setPage(1);
-      nameRef.current.focus();
-      return false;
+      if (currentStep() === 2) {
+        previousStep();
+      }
+      errorInput.name = 'Informe um nome válido';
+      notError = false;
+    } else {
+      errorInput.name = '';
     }
     if (email === '' || !validateEmail(email)) {
-      setPage(1);
-
-      emailRef.current.focus();
-      return false;
+      if (currentStep() === 2) {
+        previousStep();
+      }
+      errorInput.email = 'Informe um e-mail válido';
+      notError = false;
+    } else {
+      errorInput.email = '';
     }
     if (birthDate === '' || !validateDate(birthDate)) {
-      setPage(1);
-
-      birthDateRef.current.focus();
-      return false;
+      if (currentStep() === 2) {
+        previousStep();
+      }
+      errorInput.birthDate = 'Informe uma dáta válida';
+      notError = false;
+    } else {
+      errorInput.birthDate = '';
     }
-    if (cpf === '') {
-      setPage(1);
-      cpfRef.current.focus();
-      return false;
+    if (cpf === '' || !validateCpf(cpf)) {
+      if (currentStep() === 2) {
+        previousStep();
+      }
+      errorInput.cpf = 'Cpf inválido';
+      notError = false;
+    } else {
+      errorInput.cpf = '';
     }
     if (password === '' || password.length < 3) {
-      setPage(2);
-      passwordRef.current.focus();
-      return false;
+      if (currentStep() === 2) {
+        previousStep();
+      }
+      errorInput.password = 'A senha está pequena';
+      notError = false;
+    } else {
+      errorInput.password = '';
     }
     if (confirmPasswordRef === '' || confirmPassword !== password) {
-      setPage(2);
-      confirmPasswordRef.current.focus();
+      if (currentStep() === 2) {
+        previousStep();
+      }
+      errorInput.confirmPassword = 'As senhas não são iguais';
+      notError = false;
+    } else {
+      errorInput.confirmPassword = '';
+    }
+    if (!notError) {
       return false;
     }
+    setErrorInput(errorInput);
     setLoading(true);
     const bodyCreate = {
       name, email, password, profession, birthDate: brToIso(birthDate), cpf, isDonor: checkDonor,
@@ -145,8 +188,9 @@ const Register = ({ navigation }) => {
 
 
   const renderQuestion1 = () => (
-    <View style={{ display: page === 1 ? 'flex' : 'none' }}>
+    <BoxStep>
       <Input
+        messageErro={errorInput.name}
         innerRef={nameRef}
         type={EMAIL_TYPE}
         title="Nome Completo:"
@@ -156,6 +200,7 @@ const Register = ({ navigation }) => {
         onSubmitEditing={() => emailRef.current.focus()}
       />
       <Input
+        messageErro={errorInput.email}
         innerRef={emailRef}
         color={validateEmail(email) ? colors.grey900 : colors.pink}
         type={EMAIL_TYPE}
@@ -166,6 +211,7 @@ const Register = ({ navigation }) => {
         onSubmitEditing={() => birthDateRef.current.focus()}
       />
       <Input
+        messageErro={errorInput.birthDate}
         innerRef={birthDateRef}
         color={validateDate(birthDate) ? colors.grey900 : colors.pink}
         type={NUMBER_TYPE}
@@ -176,6 +222,7 @@ const Register = ({ navigation }) => {
         onSubmitEditing={() => cpfRef.current.focus()}
       />
       <Input
+        messageErro={errorInput.cpf}
         innerRef={cpfRef}
         color={validateCpf(cpf) ? colors.grey900 : colors.pink}
         type={CPF_TYPE}
@@ -183,14 +230,15 @@ const Register = ({ navigation }) => {
         placeholder="000.000.000-00"
         value={cpf}
         onChangeText={handleChangeCpf}
-        onSubmitEditing={() => setPage(2)}
+        onSubmitEditing={() => nextStep()}
       />
-    </View>
+    </BoxStep>
   );
 
   const renderQuestion2 = () => (
-    <View style={{ display: page === 2 ? 'flex' : 'none' }}>
+    <BoxStep>
       <Input
+        messageErro={errorInput.password}
         innerRef={passwordRef}
         color={password.length > 3 ? colors.grey900 : colors.pink}
         type={PASSWORD_TYPE}
@@ -201,6 +249,7 @@ const Register = ({ navigation }) => {
         onSubmitEditing={() => confirmPasswordRef.current.focus()}
       />
       <Input
+        messageErro={errorInput.confirmPassword}
         innerRef={confirmPasswordRef}
         color={confirmPassword === password ? colors.grey900 : colors.pink}
         type={PASSWORD_TYPE}
@@ -237,7 +286,7 @@ const Register = ({ navigation }) => {
           <TextCheckbox>Não</TextCheckbox>
         </TouchableOpacity>
       </BoxCheckbox>
-    </View>
+    </BoxStep>
   );
 
   return (
@@ -251,23 +300,33 @@ const Register = ({ navigation }) => {
           goBack={() => navigation.navigate('Login')}
         />
         <ContainerInfo>
-          {renderQuestion1()}
-          {renderQuestion2()}
+          <ScrollView
+            ref={ref}
+            horizontal
+            scrollEnabled={false}
+            showsHorizontalScrollIndicator={false}
+            keyboardShouldPersistTaps="always"
+          >
+            {renderQuestion1()}
+            {renderQuestion2()}
+          </ScrollView>
           <BoxPreviousNext>
-            <TouchableOpacity onPress={() => setPage(1)}>
-              <BtnPrevious source={iconNext} isShow={page === 2} />
+            <TouchableOpacity onPress={() => previousStep()}>
+              <BtnPrevious source={iconNext} isShow={currentStep() === 2} />
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setPage(2)}>
-              <BtnNext source={iconNext} isShow={page === 1} />
+            <TouchableOpacity onPress={() => nextStep()}>
+              <BtnNext source={iconNext} isShow={currentStep() === 1} />
             </TouchableOpacity>
 
           </BoxPreviousNext>
-          <Button
-            loading={loading}
-            label="Registrar"
-            backgroundColor={isFilled() ? colors.primary : colors.grey200}
-            onPress={sendRegister}
-          />
+          <BoxButton>
+            <Button
+              loading={loading}
+              label="Registrar"
+              backgroundColor={isFilled() ? colors.primary : colors.grey200}
+              onPress={sendRegister}
+            />
+          </BoxButton>
         </ContainerInfo>
         <ImgBottom source={imageBg} />
       </View>
