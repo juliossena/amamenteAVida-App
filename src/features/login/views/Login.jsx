@@ -1,6 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { withNavigation } from 'react-navigation';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StatusBar } from 'react-native';
 import PropTypes from 'prop-types';
 import {
   Logo, Background, ContainerLogin, ErrorMessage, BoxBottom, ButtonBottom,
@@ -60,6 +60,7 @@ const Login = ({ navigation }) => {
 
   return (
     <Background>
+      <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
       <Logo source={image} />
       <ContainerLogin>
         <Input

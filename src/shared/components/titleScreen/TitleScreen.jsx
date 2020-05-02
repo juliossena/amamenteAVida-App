@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, StatusBar } from 'react-native';
+
+import { colors } from '../../../utils/colors';
 
 import {
   IconBack, Container, Title, BackgroundEffect, ContainerBack,
@@ -11,6 +13,7 @@ const icon = require('../../../assets/icons/back.png');
 
 const TitleScreen = ({ goBack, title }) => (
   <Container>
+    <StatusBar backgroundColor={colors.primaryLight} barStyle="dark-content" />
     <ContainerBack>
       <TouchableOpacity onPress={() => goBack()}>
         <IconBack source={icon} />
