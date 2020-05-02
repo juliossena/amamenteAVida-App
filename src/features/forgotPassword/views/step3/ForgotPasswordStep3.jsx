@@ -1,7 +1,10 @@
 import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { Keyboard } from 'react-native';
 
+import { operations } from '../../../../redux';
 import { colors } from '../../../../utils/colors';
 import Input, { PASSWORD_TYPE } from '../../../../shared/components/input';
 import Button from '../../../../shared/components/button/Button';
@@ -9,7 +12,7 @@ import { URL_CHANGE_PASSWORD, ConectarApiPatch } from '../../../../shared/functi
 import { BoxStep, BoxButton } from './styles';
 
 const ForgotPasswordStep3 = ({
-  setMessageError,
+  setMessageError, reqUpdatePassword, navigation,
 }) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
@@ -41,7 +44,8 @@ const ForgotPasswordStep3 = ({
     Keyboard.dismiss();
     setLoading(true);
     try {
-      await ConectarApiPatch(URL_CHANGE_PASSWORD, { password });
+      await reqUpdatePassword({ password });
+      navigation.navigate('Home');
     } catch (e) {
       setMessageError(e.message);
     }
@@ -83,7 +87,15 @@ const ForgotPasswordStep3 = ({
 };
 
 ForgotPasswordStep3.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
   setMessageError: PropTypes.func.isRequired,
+  reqUpdatePassword: PropTypes.func.isRequired,
 };
 
-export default ForgotPasswordStep3;
+const mapDispatchToProps = {
+  reqUpdatePassword: operations.reqUpdatePassword,
+};
+
+export default compose(connect(null, mapDispatchToProps))(ForgotPasswordStep3);

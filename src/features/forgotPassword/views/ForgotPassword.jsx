@@ -56,6 +56,7 @@ const ForgotPassword = ({ navigation }) => {
             />
             <ForgotPasswordStep3
               setMessageError={setMessageError}
+              navigation={navigation}
             />
           </ScrollView>
         </ContainerInfo>

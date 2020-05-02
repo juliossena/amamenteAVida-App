@@ -1,7 +1,10 @@
 import React, { useState, createRef } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { Keyboard } from 'react-native';
 
+import { operations } from '../../../../redux';
 import { colors } from '../../../../utils/colors';
 import { InputUnique } from '../../../../shared/components/input';
 import Button from '../../../../shared/components/button/Button';
@@ -19,7 +22,7 @@ import {
 const sendEmail = require('../../../../assets/gifs/send-email.gif');
 
 const ForgotPasswordStep2 = ({
-  nextStep, email, setMessageError,
+  nextStep, email, setMessageError, reqVerificationCode,
 }) => {
   const [loading, setLoading] = useState(false);
   const [code1, setCode1] = useState('');
@@ -39,9 +42,8 @@ const ForgotPasswordStep2 = ({
 
   const handleSendCodeVerification = async (codeVerification) => {
     setLoading(true);
-    const url = generateQueryString(URL_FORGOT, { email, codeVerification });
     try {
-      await ConectarApiGet(url, { email });
+      await reqVerificationCode({ email, codeVerification });
       nextStep();
     } catch (e) {
       setMessageError(e.message);
@@ -147,6 +149,11 @@ ForgotPasswordStep2.propTypes = {
   nextStep: PropTypes.func.isRequired,
   email: PropTypes.string.isRequired,
   setMessageError: PropTypes.func.isRequired,
+  reqVerificationCode: PropTypes.func.isRequired,
 };
 
-export default ForgotPasswordStep2;
+const mapDispatchToProps = {
+  reqVerificationCode: operations.reqVerificationCode,
+};
+
+export default compose(connect(null, mapDispatchToProps))(ForgotPasswordStep2);

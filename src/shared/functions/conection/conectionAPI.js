@@ -1,15 +1,16 @@
 import Axios from 'axios';
 import * as Constants from '../../../utils/constants';
-import Security from '../security';
+import { valueToken } from '../auth';
 
 export default class Conecta {
-  static chamada(url, metodo, body) {
+  static async chamada(url, metodo, body) {
     let resposta;
     let config = {};
+    const jwt = await valueToken();
     try {
       config = {
         headers: {
-          Authorization: Security.getTokenValue(),
+          Authorization: jwt,
           'Content-Type': 'application/json',
         },
       };

@@ -1,7 +1,10 @@
 import React, { useState, createRef } from 'react';
 import { withNavigation } from 'react-navigation';
 import { TouchableOpacity, StatusBar } from 'react-native';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
+import { operations } from '../../../redux';
 import {
   Logo, Background, ContainerLogin, ErrorMessage, BoxBottom, ButtonBottom,
 } from './styles';
@@ -11,15 +14,13 @@ import { colors } from '../../../utils/colors';
 import {
   EMAIL_TYPE, PASSWORD_TYPE,
 } from '../../../shared/components/input/constants';
-import { ConectarApiPost, URL_LOGIN } from '../../../shared/functions/conection';
-import { onSignIn } from '../../../shared/functions/auth';
 
 
 const image = require('../../../assets/img/logo.png');
 const iconEmail = require('../../../assets/icons/email.png');
 const iconPassword = require('../../../assets/icons/password.png');
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, reqLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -41,11 +42,10 @@ const Login = ({ navigation }) => {
     setLoading(true);
     const bodyLogin = { email, password };
     try {
-      const result = await ConectarApiPost(URL_LOGIN, bodyLogin);
-      onSignIn(result.headers.authorization);
+      await reqLogin(bodyLogin);
       navigation.navigate('Home');
     } catch (e) {
-      setErrorMessage('Email ou senha inválidos');
+      setErrorMessage('E-mail ou senha inválidas.');
     }
     setLoading(false);
   };
@@ -109,6 +109,11 @@ Login.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }).isRequired,
+  reqLogin: PropTypes.func.isRequired,
 };
 
-export default withNavigation(Login);
+const mapDispatchToProps = {
+  reqLogin: operations.reqLogin,
+};
+
+export default withNavigation(compose(connect(null, mapDispatchToProps))(Login));
