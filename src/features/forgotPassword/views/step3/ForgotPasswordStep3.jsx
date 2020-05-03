@@ -86,9 +86,6 @@ const ForgotPasswordStep3 = ({
 };
 
 ForgotPasswordStep3.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
   setMessageError: PropTypes.func.isRequired,
   setMessageSuccess: PropTypes.func.isRequired,
   reqUpdatePassword: PropTypes.func.isRequired,

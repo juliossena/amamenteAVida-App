@@ -15,7 +15,7 @@ export const Background = styled.View`
     width: 100%;
     height: 100%;
     padding-top: ${Platform.OS === 'ios' ? '80px' : '0px'}
-    background-color: ${colors.pinkDark};
+    background-color: ${colors.primary};
 `;
 
 export const Input = styled.TextInput`

@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import { TouchableOpacity, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -44,7 +44,12 @@ const Login = ({ navigation, reqLogin, reqGetClient }) => {
     try {
       await reqLogin(bodyLogin);
       await reqGetClient();
-      navigation.navigate('Home');
+      navigation.dispatch(StackActions.reset({
+        index: 0,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+        ],
+      }));
     } catch (e) {
       setErrorMessage('E-mail ou senha inválidas.');
     }
@@ -109,6 +114,7 @@ const Login = ({ navigation, reqLogin, reqGetClient }) => {
 Login.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   }).isRequired,
   reqLogin: PropTypes.func.isRequired,
   reqGetClient: PropTypes.func.isRequired,

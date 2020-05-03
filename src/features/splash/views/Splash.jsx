@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { withNavigation } from 'react-navigation';
+import { withNavigation, StackActions, NavigationActions } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { StatusBar, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
@@ -13,17 +13,31 @@ import { Container, Logo } from './styles';
 const logo = require('../../../assets/img/logo.png');
 
 const Splash = ({ navigation, reqGetClient }) => {
+  const resetActionLogin = StackActions.reset({
+    index: 0,
+    actions: [
+      NavigationActions.navigate({ routeName: 'Login' }),
+    ],
+  });
+
+  const resetActionHome = StackActions.reset({
+    index: 0,
+    actions: [
+      NavigationActions.navigate({ routeName: 'Home' }),
+    ],
+  });
+
   useEffect(() => {
     const validateLogin = async () => {
       const jwt = await valueToken();
       if (jwt === null) {
-        navigation.navigate('Login');
+        navigation.dispatch(resetActionLogin);
       } else {
         try {
           await reqGetClient();
-          navigation.navigate('Home');
+          navigation.dispatch(resetActionHome);
         } catch (e) {
-          navigation.navigate('Login');
+          navigation.dispatch(resetActionLogin);
         }
       }
     };
@@ -45,6 +59,7 @@ const Splash = ({ navigation, reqGetClient }) => {
 Splash.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
   }).isRequired,
   reqGetClient: PropTypes.func.isRequired,
 };

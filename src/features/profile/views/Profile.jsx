@@ -6,7 +6,7 @@ import { onSignOut } from '../../../shared/functions/auth';
 const Home = () => (
   <TouchableOpacity onPress={() => onSignOut()}>
     <Text>
-      home
+      Perfil
     </Text>
   </TouchableOpacity>
 );

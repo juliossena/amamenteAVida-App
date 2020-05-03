@@ -19,7 +19,6 @@ import {
 
 const imageBg = require('../../../assets/img/bg_light.png');
 
-
 const ForgotPassword = ({ navigation }) => {
   const { ref, nextStep } = useHorizontalSteps(Dimensions.get('window').width);
   const [email, setEmail] = useState('');

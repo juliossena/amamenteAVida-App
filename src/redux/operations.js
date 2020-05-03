@@ -24,7 +24,7 @@ export const reqVerificationCode = (body) => async (dispatch) => {
   }
 };
 
-export const reqUpdatePassword = (body) => async (dispatch) => {
+export const reqUpdatePassword = (body) => async () => {
   try {
     await updatePassword(body);
   } catch (error) {
