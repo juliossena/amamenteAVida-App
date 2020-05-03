@@ -7,6 +7,6 @@ export const setJwt = (jwt) => ({
 });
 
 export const setClient = (client) => ({
-  type: SET_JWT,
+  type: SET_CLIENT,
   payload: client,
 });

@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
-import MenuBar from '../../../shared/components/menuBar/MenuBar';
 
 const Locations = ({ navigation }) => (
   <>
-    <MenuBar navigation={navigation} />
     <Text>Local mais proximo para doação</Text>
   </>
 );
