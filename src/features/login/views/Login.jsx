@@ -20,7 +20,7 @@ const image = require('../../../assets/img/logo.png');
 const iconEmail = require('../../../assets/icons/email.png');
 const iconPassword = require('../../../assets/icons/password.png');
 
-const Login = ({ navigation, reqLogin }) => {
+const Login = ({ navigation, reqLogin, reqGetClient }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -43,6 +43,7 @@ const Login = ({ navigation, reqLogin }) => {
     const bodyLogin = { email, password };
     try {
       await reqLogin(bodyLogin);
+      await reqGetClient();
       navigation.navigate('Home');
     } catch (e) {
       setErrorMessage('E-mail ou senha inválidas.');
@@ -110,10 +111,12 @@ Login.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
   reqLogin: PropTypes.func.isRequired,
+  reqGetClient: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
   reqLogin: operations.reqLogin,
+  reqGetClient: operations.reqGetClient,
 };
 
 export default withNavigation(compose(connect(null, mapDispatchToProps))(Login));

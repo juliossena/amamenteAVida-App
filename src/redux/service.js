@@ -5,6 +5,7 @@ import {
   URL_LOGIN,
   URL_FORGOT,
   URL_CHANGE_PASSWORD,
+  URL_CLIENT,
 } from '../shared/functions/conection';
 import { generateQueryString } from '../utils/service';
 
@@ -22,6 +23,11 @@ export async function sendVerificationCode(body) {
 export async function updatePassword(body) {
   const respostaServico = await ConectarApiPatch(URL_CHANGE_PASSWORD, body);
   return respostaServico.headers.authorization;
+}
+
+export async function getClient() {
+  const respostaServico = await ConectarApiGet(URL_CLIENT);
+  return respostaServico.data;
 }
 
 export default login;

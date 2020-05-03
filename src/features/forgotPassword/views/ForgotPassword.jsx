@@ -24,11 +24,15 @@ const ForgotPassword = ({ navigation }) => {
   const { ref, nextStep } = useHorizontalSteps(Dimensions.get('window').width);
   const [email, setEmail] = useState('');
   const [messageError, setMessageError] = useState('');
+  const [messageSuccess, setMessageSuccess] = useState('');
 
   return (
     <Container>
       <ModalFeedback open={messageError !== ''} isSuccess={false} onClose={() => setMessageError('')}>
         {messageError}
+      </ModalFeedback>
+      <ModalFeedback open={messageSuccess !== ''} onClose={() => navigation.navigate('Login')}>
+        {messageSuccess}
       </ModalFeedback>
       <View style={{ backgroundColor: colors.white }}>
         <TitleScreen
@@ -56,7 +60,7 @@ const ForgotPassword = ({ navigation }) => {
             />
             <ForgotPasswordStep3
               setMessageError={setMessageError}
-              navigation={navigation}
+              setMessageSuccess={setMessageSuccess}
             />
           </ScrollView>
         </ContainerInfo>

@@ -6,13 +6,12 @@ import { Keyboard } from 'react-native';
 
 import { operations } from '../../../../redux';
 import { colors } from '../../../../utils/colors';
-import Input, { PASSWORD_TYPE } from '../../../../shared/components/input';
+import { Input, PASSWORD_TYPE } from '../../../../shared/components/input';
 import Button from '../../../../shared/components/button/Button';
-import { URL_CHANGE_PASSWORD, ConectarApiPatch } from '../../../../shared/functions/conection';
 import { BoxStep, BoxButton } from './styles';
 
 const ForgotPasswordStep3 = ({
-  setMessageError, reqUpdatePassword, navigation,
+  setMessageError, reqUpdatePassword, setMessageSuccess,
 }) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState('');
@@ -45,7 +44,7 @@ const ForgotPasswordStep3 = ({
     setLoading(true);
     try {
       await reqUpdatePassword({ password });
-      navigation.navigate('Home');
+      setMessageSuccess('Sua senha foi atualizada. Efetue o login com a nova senha para ter acesso à plataforma.');
     } catch (e) {
       setMessageError(e.message);
     }
@@ -91,6 +90,7 @@ ForgotPasswordStep3.propTypes = {
     navigate: PropTypes.func.isRequired,
   }).isRequired,
   setMessageError: PropTypes.func.isRequired,
+  setMessageSuccess: PropTypes.func.isRequired,
   reqUpdatePassword: PropTypes.func.isRequired,
 };
 

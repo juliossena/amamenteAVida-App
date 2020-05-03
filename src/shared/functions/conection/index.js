@@ -8,6 +8,7 @@ import {
   URL_CREATE_USER,
   URL_LOGIN,
   URL_CHANGE_PASSWORD,
+  URL_CLIENT,
 } from './urls';
 
 export {
@@ -21,4 +22,5 @@ export {
   URL_CREATE_USER,
   URL_LOGIN,
   URL_CHANGE_PASSWORD,
+  URL_CLIENT,
 };

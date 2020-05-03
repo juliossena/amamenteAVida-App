@@ -2,6 +2,7 @@ import {
   login,
   sendVerificationCode,
   updatePassword,
+  getClient,
 } from './service';
 import * as loginActions from './actions';
 
@@ -26,6 +27,15 @@ export const reqVerificationCode = (body) => async (dispatch) => {
 export const reqUpdatePassword = (body) => async (dispatch) => {
   try {
     await updatePassword(body);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const reqGetClient = () => async (dispatch) => {
+  try {
+    const result = await getClient();
+    dispatch(loginActions.setClient(result));
   } catch (error) {
     throw new Error(error.message);
   }

@@ -1,10 +1,14 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
+
+import { onSignOut } from '../../../shared/functions/auth';
 
 const Home = () => (
-  <Text>
-    tste
-  </Text>
+  <TouchableOpacity onPress={() => onSignOut()}>
+    <Text>
+      home
+    </Text>
+  </TouchableOpacity>
 );
 
 export default Home;
