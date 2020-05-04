@@ -9,6 +9,7 @@ import {
   URL_LOGIN,
   URL_CHANGE_PASSWORD,
   URL_CLIENT,
+  URL_DONO,
 } from './urls';
 
 export {
@@ -23,4 +24,5 @@ export {
   URL_LOGIN,
   URL_CHANGE_PASSWORD,
   URL_CLIENT,
+  URL_DONO,
 };

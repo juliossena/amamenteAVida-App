@@ -9,7 +9,7 @@ export const Container = styled.View`
     right: 0px;
     bottom: 0px;
     top: 0px;
-    z-index: 10;
+    z-index: 100;
     justify-content: center;
     background-color: #00000080;
 `;

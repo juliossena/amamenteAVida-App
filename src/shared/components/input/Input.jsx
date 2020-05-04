@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 import { colors } from '../../../utils/colors';
 import {
-  EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF,
+  EMAIL_TYPE, PASSWORD_TYPE, CPF_TYPE, NUMBER_TYPE, TYPE_DATE, TYPE_CPF, TYPE_TELEPHONE,
 } from './constants';
 import {
-  InputStyled, Container, Icon, Title, ContainerTitle, MessageError,
+  InputStyled, Container, Icon, Title, ContainerTitle, MessageError, Measure,
 } from './styles';
 
 export const Mask = {
@@ -45,6 +45,29 @@ export const Mask = {
 
     return v;
   },
+  telephone: (_value) => {
+    const value = (_value || '').toString();
+
+    const v = value.replace(/\D/g, '').slice(0, 11);
+
+    if (v.length >= 11) {
+      return `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+    }
+
+    if (v.length >= 8) {
+      return `(${v.slice(0, 2)}) ${v.slice(2, 6)}-${v.slice(6)}`;
+    }
+
+    if (v.length >= 3) {
+      return `(${v.slice(0, 2)}) ${v.slice(2, 8)}`;
+    }
+
+    if (v.length >= 1) {
+      return `(${v.slice(0, 4)}`;
+    }
+
+    return v;
+  },
 };
 
 export const SelectMask = (mask) => {
@@ -53,6 +76,8 @@ export const SelectMask = (mask) => {
       return Mask.date;
     case TYPE_CPF:
       return Mask.cpf;
+    case TYPE_TELEPHONE:
+      return Mask.telephone;
     default:
       return '';
   }
@@ -94,7 +119,7 @@ const getPropsByType = (type) => {
 const Input = ({
   placeholder, color, type, icon, innerRef, editable, colorPlacehoder,
   disabled, value, onChangeText, onFocus, maxLength, title, colorTitle,
-  colorBorder, messageErro, ...inputProps
+  colorBorder, messageErro, measure, ...inputProps
 }) => (
   <ContainerTitle>
     <Title color={colorTitle}>
@@ -116,6 +141,7 @@ const Input = ({
         maxLength={maxLength}
       />
       {icon ? (<Icon source={icon} />) : null}
+      {measure ? (<Measure>{measure}</Measure>) : null}
     </Container>
     <MessageError>
       {messageErro}
@@ -141,6 +167,7 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   maxLength: PropTypes.number,
   messageErro: PropTypes.string,
+  measure: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -158,6 +185,7 @@ Input.defaultProps = {
   onFocus: () => {},
   maxLength: 9999,
   messageErro: '',
+  measure: null,
 };
 
 export default Input;

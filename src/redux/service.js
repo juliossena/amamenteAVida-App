@@ -6,6 +6,7 @@ import {
   URL_FORGOT,
   URL_CHANGE_PASSWORD,
   URL_CLIENT,
+  URL_DONO,
 } from '../shared/functions/conection';
 import { generateQueryString } from '../utils/service';
 
@@ -27,6 +28,11 @@ export async function updatePassword(body) {
 
 export async function getClient() {
   const respostaServico = await ConectarApiGet(URL_CLIENT);
+  return respostaServico.data;
+}
+
+export async function insertDono(body) {
+  const respostaServico = await ConectarApiPost(URL_DONO, body);
   return respostaServico.data;
 }
 

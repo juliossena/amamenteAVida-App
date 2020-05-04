@@ -46,3 +46,10 @@ export const Title = styled.Text`
     color: ${(props) => props.color || colors.grey900};
     margin-bottom: -8px;
 `;
+
+export const Measure = styled.Text`
+    font-size: 18px;
+    margin-left: -16px;
+    margin-top: 16px;
+    color: ${colors.grey800};
+`;

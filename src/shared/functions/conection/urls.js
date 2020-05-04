@@ -5,3 +5,4 @@ export const URL_CREATE_USER = `${URL_BASE}client`;
 export const URL_CLIENT = `${URL_BASE}client`;
 export const URL_LOGIN = `${URL_BASE}login`;
 export const URL_CHANGE_PASSWORD = `${URL_BASE}client/password`;
+export const URL_DONO = `${URL_BASE}dono`;

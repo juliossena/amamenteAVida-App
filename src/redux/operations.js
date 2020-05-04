@@ -3,6 +3,7 @@ import {
   sendVerificationCode,
   updatePassword,
   getClient,
+  insertDono,
 } from './service';
 import * as loginActions from './actions';
 
@@ -36,6 +37,15 @@ export const reqGetClient = () => async (dispatch) => {
   try {
     const result = await getClient();
     dispatch(loginActions.setClient(result));
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const reqInsertDono = (body) => async (dispatch) => {
+  try {
+    const result = await insertDono(body);
+    dispatch(loginActions.setDono(result));
   } catch (error) {
     throw new Error(error.message);
   }
