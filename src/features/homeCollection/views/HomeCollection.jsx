@@ -30,7 +30,7 @@ const HomeCollections = ({ reqInsertDono }) => {
     try {
       const bodyCreate = { donationVolume, collectionDate: brToIso(collectionDate), contact };
       await reqInsertDono(bodyCreate);
-      Linking.openURL('tel:3856898');
+      Linking.openURL('tel:3133375678');
     } catch (e) {
       setErrorMessage(e.message);
     }

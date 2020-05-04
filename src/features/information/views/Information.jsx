@@ -15,7 +15,6 @@ const Information = () => (
       showsHorizontalScrollIndicator={false}
       keyboardShouldPersistTaps="always"
     >
-
       <Title>
         {' '}
         <Icon icon={faChevronRight} color={colors.primary} />
@@ -64,7 +63,8 @@ const Information = () => (
         9 - Identifique o pote com seu nome e data do início da coleta;
       </Paragraph>
       <Paragraph>
-        10 - Caso deseje completar o pote que já contém leite, faça a coleta em um copo de vidro limpo e depois despeje no pote;
+        10 - Caso deseje completar o pote que já contém leite, faça
+        a coleta em um copo de vidro limpo e depois despeje no pote;
       </Paragraph>
       <Paragraph>
         11 - O leite pode ficar até 10 dias no congelador ou freezer;
