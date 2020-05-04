@@ -90,9 +90,6 @@ const HomeCollections = ({ reqInsertDono }) => {
 };
 
 HomeCollections.propTypes = {
-  navigation: PropTypes.shape({
-    openDrawer: PropTypes.func.isRequired,
-  }).isRequired,
   reqInsertDono: PropTypes.func.isRequired,
 };
 
