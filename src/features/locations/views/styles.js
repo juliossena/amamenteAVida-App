@@ -17,13 +17,14 @@ export const ScrollView = styled.ScrollView`
 `;
 
 export const Title = styled.Text`
-    font-size: 18px; 
+    font-weight: bold;
+    font-size: 22px; 
     color: ${colors.primary};
     margin-top: 24px;
 `;
 
 export const Paragraph = styled.Text`
-    font-size: 16px;
+    font-size: 18px;
     text-align: justify;
     width: 95%;
     color: ${colors.grey800};
